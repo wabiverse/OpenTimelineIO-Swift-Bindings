@@ -6,7 +6,7 @@
 // Copyright Contributors to the OpenTimelineIO project
 
 import Foundation
-import OpenTimelineIO_objc
+import OpenTimelineIO_CXX
 
 public struct OpentimeError : Error, CustomStringConvertible {
     // must match opentime/errorStatus.h

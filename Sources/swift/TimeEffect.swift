@@ -5,7 +5,7 @@
 // Copyright Contributors to the OpenTimelineIO project
 
 import Foundation
-import OpenTimelineIO_objc
+import OpenTimelineIO_CXX
 
 public class TimeEffect : Effect {
     override public init() {

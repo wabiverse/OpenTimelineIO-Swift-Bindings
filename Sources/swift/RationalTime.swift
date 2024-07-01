@@ -5,7 +5,7 @@
 // Copyright Contributors to the OpenTimelineIO project
 
 // import Foundation
-import OpenTimelineIO_objc
+import OpenTimelineIO_CXX
 
 public struct RationalTime: CustomStringConvertible, Equatable {
     public var value: Double { return cxxRationalTime.value }

@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright Contributors to the OpenTimelineIO project
 
-import OpenTimelineIO_objc
+import OpenTimelineIO_CXX
 
 public struct TimeTransform : Equatable, CustomStringConvertible {
     public var offset: RationalTime {

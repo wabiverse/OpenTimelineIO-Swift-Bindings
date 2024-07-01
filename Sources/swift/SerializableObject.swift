@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright Contributors to the OpenTimelineIO project
 
-import OpenTimelineIO_objc
+import OpenTimelineIO_CXX
 typealias CxxSerializableObjectPtr = UnsafeMutableRawPointer
 
 public typealias schema_version_map = [String: NSNumber]

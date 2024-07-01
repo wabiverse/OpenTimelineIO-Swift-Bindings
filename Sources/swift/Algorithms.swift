@@ -6,7 +6,7 @@
 // Copyright Contributors to the OpenTimelineIO project
 
 import Foundation
-import OpenTimelineIO_objc
+import OpenTimelineIO_CXX
 
 public enum Algorithms {
     static public func trackTrimmedToRange(track: Track, trimRange: TimeRange) throws -> Track {

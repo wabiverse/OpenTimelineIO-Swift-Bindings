@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -9,7 +9,7 @@ import PackageDescription
 let package = Package(
     name: "OpenTimelineIO",
     platforms: [.macOS(.v10_13),
-        .iOS(.v11)],
+        .iOS(.v12)],
     products: [
         .library(name: "any", targets: ["any"]),
         .library(name: "OpenTime_CXX", targets: ["OpenTime_CXX"]),
@@ -25,7 +25,7 @@ let package = Package(
                 "CONTRIBUTORS.md", "NOTICE.txt", "CONTRIBUTING.md", "LICENSE.txt", "CODE_OF_CONDUCT.md",
                 "OTIO_CLA_Corporate.pdf", "OTIO_CLA_Individual.pdf",
                 "README.md", "Sources/shims/optionallite-shim.cpp", "Sources/shims/otio_header_root-shim.cpp",
-                "Examples", "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
+                "Examples", "OpenTimelineIO", "Tests", "Sources/swift"],
             sources: ["Sources/shims/any-shim.cpp"],
             publicHeadersPath:"OpenTimelineIO/src/deps"),
 
@@ -35,7 +35,7 @@ let package = Package(
                 "CONTRIBUTORS.md", "NOTICE.txt", "CONTRIBUTING.md", "LICENSE.txt", "CODE_OF_CONDUCT.md",
                 "OTIO_CLA_Corporate.pdf", "OTIO_CLA_Individual.pdf",
                 "README.md", "Sources/shims/any-shim.cpp", "Sources/shims/otio_header_root-shim.cpp",
-                "Examples", "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
+                "Examples", "OpenTimelineIO", "Tests", "Sources/swift"],
             sources: ["Sources/shims/optionallite-shim.cpp"],
             publicHeadersPath:"OpenTimelineIO/src/deps/optional-lite/include"),
 
@@ -45,7 +45,7 @@ let package = Package(
                 "CONTRIBUTORS.md", "NOTICE.txt", "CONTRIBUTING.md", "LICENSE.txt", "CODE_OF_CONDUCT.md",
                 "OTIO_CLA_Corporate.pdf", "OTIO_CLA_Individual.pdf",
                 "README.md", "Sources/shims/any-shim.cpp", "Sources/shims/optionallite-shim.cpp",
-                "Examples", "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
+                "Examples", "OpenTimelineIO", "Tests", "Sources/swift"],
             sources: ["Sources/shims/otio_header_root-shim.cpp"],
             publicHeadersPath:"OpenTimelineIO/src"),
 
@@ -69,29 +69,35 @@ let package = Package(
                 .headerSearchPath("../../../Sources/cpp"),
                 .headerSearchPath("../deps/rapidjson/include")]),
 
-        .target(name: "OpenTimelineIO_objc",
-            dependencies: ["OpenTimelineIO_CXX"],
-            path: "Sources",
-            exclude: ["swift", "shims"],
-            sources: ["objc"],
-            publicHeadersPath: "objc/include",
-            cxxSettings: [
-                .headerSearchPath("../OpenTimelineIO/src/deps/Imath/src/Imath"),
-                .headerSearchPath("../Sources/cpp"),
-                .headerSearchPath("objc/include")]),
+        // .target(name: "OpenTimelineIO_objc",
+        //     dependencies: ["OpenTimelineIO_CXX"],
+        //     path: "Sources",
+        //     exclude: ["swift", "shims"],
+        //     sources: ["objc"],
+        //     publicHeadersPath: "objc/include",
+        //     cxxSettings: [
+        //         .headerSearchPath("../OpenTimelineIO/src/deps/Imath/src/Imath"),
+        //         .headerSearchPath("../Sources/cpp"),
+        //         .headerSearchPath("objc/include")]),
 
         // public target
         .target(name: "OpenTimelineIO",
-            dependencies: ["OpenTimelineIO_objc"],
+            dependencies: ["OpenTimelineIO_CXX"],
             path: "Sources",
-            exclude: ["objc", "shims"],
-            sources: ["swift"]),
+            exclude: ["shims"],
+            sources: ["swift"],
+            swiftSettings: [
+              .interoperabilityMode(.Cxx)
+            ]),
 
         .testTarget(name: "OpenTimelineIOTests",
             dependencies: ["OpenTimelineIO"],
             path: "Tests",
             sources: ["OpenTimelineIOTests"],
-            resources: [ .copy("data") ])
+            resources: [ .copy("data") ],
+            swiftSettings: [
+              .interoperabilityMode(.Cxx)
+            ])
     ],
     cxxLanguageStandard: CXXLanguageStandard.cxx14
 )
