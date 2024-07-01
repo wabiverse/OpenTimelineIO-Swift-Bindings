@@ -99,5 +99,5 @@ let package = Package(
               .interoperabilityMode(.Cxx)
             ])
     ],
-    cxxLanguageStandard: CXXLanguageStandard.cxx14
+    cxxLanguageStandard: .cxx17
 )
