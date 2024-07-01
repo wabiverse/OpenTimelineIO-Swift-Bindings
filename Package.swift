@@ -74,11 +74,7 @@ let package = Package(
         //     path: "Sources",
         //     exclude: ["swift", "shims"],
         //     sources: ["objc"],
-        //     publicHeadersPath: "objc/include",
-        //     cxxSettings: [
-        //         .headerSearchPath("../OpenTimelineIO/src/deps/Imath/src/Imath"),
-        //         .headerSearchPath("../Sources/cpp"),
-        //         .headerSearchPath("objc/include")]),
+        //     publicHeadersPath: "objc/include"),
 
         // public target
         .target(name: "OpenTimelineIO",
@@ -86,6 +82,10 @@ let package = Package(
             path: "Sources",
             exclude: ["shims"],
             sources: ["swift"],
+            cxxSettings: [
+              .headerSearchPath("../OpenTimelineIO/src/deps/Imath/src/Imath"),
+              .headerSearchPath("../Sources/cpp")
+            ],
             swiftSettings: [
               .interoperabilityMode(.Cxx)
             ]),
